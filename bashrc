@@ -5,8 +5,11 @@ HISTFILESIZE=2000
 
 export DOTFILES=$HOME/dotfiles
 
+export GOROOT=$HOME/go
+export GOPATH=$HOME/gopath
+
 export EDITOR=vim
-export PATH=$DOTFILES/bin:$PATH
+export PATH=$DOTFILES/bin:$GOPATH/bin:$GOROOT/bin:$PATH
 
 alias cd~='cd ~'
 alias cd..='cd ..'
