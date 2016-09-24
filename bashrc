@@ -28,3 +28,22 @@ alias v='vim'
 source /usr/share/bash-completion/bash_completion
 complete -o nospace -F _cd sl
 
+alias d='docker'
+alias dc='docker-compose'
+alias dimg='docker images'
+alias dps='docker ps'
+alias dpsa='docker ps --all'
+alias dpsl='docker ps --latest'
+alias drm='docker rm'
+alias drma='docker rm $(docker ps --quiet --filter status=exited)'
+alias dstart='docker start'
+alias dstop='docker stop'
+alias dstopa='docker stop $(docker ps --quiet)'
+
+# load completion
+_completion_loader docker
+# _docker is a completion funcition. See: (complete | grep docker)
+complete -F _docker d
+complete -F _docker_images dimg
+complete -F _docker_compose dc
+
