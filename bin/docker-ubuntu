@@ -1,0 +1,99 @@
+#!/bin/bash
+set -eu
+
+#
+# Docker Engine
+#
+# See: https://docs.docker.com/engine/installation/linux/ubuntulinux/
+# See: https://blog.docker.com/2015/07/new-apt-and-yum-repos/
+# docker -v -> 2016.06.26 Docker version 1.11.2, build b9f10c9
+
+install_docker_engine() {
+	# Add the new gpg key
+	sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+
+	# The possible entries are:
+	#entry="deb https://apt.dockerproject.org/repo ubuntu-wily main" # Wily 15.10
+	entry="deb https://apt.dockerproject.org/repo ubuntu-xenial main" # Xenial 16.04 (LTS)
+
+	# Clear and edit entries for Ubuntu
+	echo $entry | sudo tee /etc/apt/sources.list.d/docker.list
+
+	# Update the apt package index
+	sudo apt-get update
+	# Verify the repository
+	sudo apt-cache policy docker-engine
+
+	# Install Docker
+	sudo apt-get -y install docker-engine
+	# Create the docker group and add your user
+	# -a		append the user to the supplemental GROUPS
+	# -G GROUPS	new list of supplementary GROUPS
+	sudo usermod -aG docker $(whoami)
+}
+
+uninstall_docker_engine() {
+	# Uninstall the Docker package and dependencies
+	sudo apt-get autoremove --purge docker-engine
+	# Delete all images, containers, and volumes
+	sudo rm -rf /var/lib/docker
+}
+
+#
+# Docker Compose
+#
+# See: https://docs.docker.com/compose/install/ 
+# docker-compose -v -> 2016.06.26 docker-compose version 1.7.1, build 0a9ab35
+
+install_docker_compose() {
+	url="https://github.com/docker/compose/releases/download/$1/docker-compose-`uname -s`-`uname -m`"
+	output="/usr/local/bin/docker-compose"
+	curl -L $url | sudo tee $output > /dev/null
+	sudo chmod +x $output
+}
+
+install_docker_compose_bash_completion() {
+	version=$(docker-compose version --short)
+	url="https://raw.githubusercontent.com/docker/compose/$version/contrib/completion/bash/docker-compose"
+	output="/etc/bash_completion.d/docker-compose"
+	curl -L $url | sudo tee $output > /dev/null
+}
+
+uninstall_docker_compose() {
+	sudo rm /usr/local/bin/docker-compose
+}
+
+uninstall_docker_compose_bash_completion() {
+	sudo rm /etc/bash_completion.d/docker-compose
+}
+
+#
+# Misc
+#
+
+show_docker_info() {
+	sudo docker -v
+	sudo docker -D info
+	docker-compose version
+}
+
+usage="Usage: $0 install|uninstall"
+subcommand=$1
+case $subcommand in
+	install)
+		install_docker_engine
+		install_docker_compose 1.7.1
+		install_docker_compose_bash_completion
+		show_docker_info
+		;;
+	uninstall)
+		uninstall_docker_engine
+		uninstall_docker_compose
+		uninstall_docker_compose_bash_completion
+		;;
+	*)
+		echo $usage
+		exit
+		;;
+esac
+
