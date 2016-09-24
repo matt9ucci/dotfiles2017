@@ -1,0 +1,20 @@
+#!/bin/sh
+set -eu
+
+cd $HOME/dotfiles
+git submodule update --init
+
+for target in $HOME/dotfiles/bin/*; do
+	chmod +x $target
+done
+
+for target in $HOME/dotfiles/install/*.sh; do
+	source $target
+done
+
+install_build-essentials
+install_curl
+install_git && initialize_git
+install_vim && initialize_vim
+
+initialize_bash
