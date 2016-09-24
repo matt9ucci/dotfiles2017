@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+mountpoint=$HOME/shared
+mkdir -p $mountpoint
+sudo mount -t vboxsf 'Shared' $mountpoint
