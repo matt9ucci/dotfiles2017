@@ -8,3 +8,5 @@ set tabstop=4
 
 map <C-V> <C-v>
 
+let g:ctrlp_map = '<C-l>'
+
