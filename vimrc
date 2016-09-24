@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 set number
 set pastetoggle=<F2>
 set shiftwidth=4
