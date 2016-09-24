@@ -3,6 +3,10 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
+if [ -f "$HOME/.proxy" ]; then
+	source "$HOME/.proxy"
+fi
+
 export DOTFILES=$HOME/dotfiles
 
 export GOROOT=$HOME/go

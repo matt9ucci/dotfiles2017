@@ -1,0 +1,29 @@
+PROXY_USER=
+PROXY_PASSWORD=
+PROXY_SERVER=
+PROXY_PORT=
+
+PROXY=$PROXY_USER:$PROXY_PASSWORD@$PROXY_SERVER:$PROXY_PORT
+#PROXY=$PROXY_SERVER:$PROXY_PORT
+
+export http_proxy=http://$PROXY
+export https_proxy=https://$PROXY
+export ftp_proxy=ftp://$PROXY
+export no_proxy=localhost,127.0.0.1
+
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$https_proxy
+export FTP_PROXY=$ftp_proxy
+export NO_PROXY=$no_proxy
+
+unset PROXY_USER
+unset PROXY_PASSWORD
+unset PROXY_SERVER
+unset PROXY_PORT
+unset PROXY
+
+# To keep certain environment variables
+#sudo visudo
+#Defaults env_keep+="http_proxy https_proxy ftp_proxy no_proxy"
+#Defaults env_keep+="HTTP_PROXY HTTPS_PROXY FTP_PROXY NO_PROXY"
+
