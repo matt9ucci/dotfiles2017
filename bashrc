@@ -5,6 +5,7 @@ HISTFILESIZE=2000
 
 export DOTFILES=$HOME/dotfiles
 
+export EDITOR=vim
 export PATH=$DOTFILES/bin:$PATH
 
 alias cd~='cd ~'
@@ -21,6 +22,8 @@ alias lsa='ls -A'
 alias mkdir='mkdir -pv'
 
 alias shutdown='sudo shutdown now'
+
+alias v='vim'
 
 source /usr/share/bash-completion/bash_completion
 complete -o nospace -F _cd sl
