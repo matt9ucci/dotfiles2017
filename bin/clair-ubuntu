@@ -1,0 +1,34 @@
+#!/bin/bash
+set -eu
+
+# See: https://github.com/coreos/clair/blob/master/README.md
+install_clair() {
+	sudo apt-get install -y bzr rpm xz-utils
+	curl -L "https://github.com/coreos/clair/archive/v$1.tar.gz" | tar -xzf - --directory $HOME
+	mkdir -p $GOPATH/src/github.com/coreos
+	mv $HOME/clair-$1 $GOPATH/src/github.com/coreos/clair
+	go install -v github.com/coreos/clair/cmd/clair
+	curl -L "https://raw.githubusercontent.com/coreos/clair/v$1/config.example.yaml" -o $HOME/clair-config.yaml
+}
+
+uninstall_clair() {
+	rm -rf $GOPATH/src/github.com/coreos/clair
+	rm $HOME/clair-config.yaml
+}
+
+usage="Usage: $0 install|uninstall"
+subcommand=$1
+shift
+case $subcommand in
+	install)
+		install_clair $1
+		;;
+	uninstall)
+		uninstall_clair
+		;;
+	*)
+		echo $usage
+		exit
+		;;
+esac
+
