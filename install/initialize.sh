@@ -37,13 +37,17 @@ initialize_gopath() {
 	fi
 }
 
-initialize_mate-terminal() {
+initialize_mateterminal() {
 	gsettings set org.mate.terminal.keybindings copy '<Ctrl>c'
 	gsettings set org.mate.terminal.keybindings paste '<Ctrl>v'
 	gsettings set org.mate.terminal.profile:/org/mate/terminal/profiles/default/ silent-bell true
 	gsettings set org.mate.terminal.profile:/org/mate/terminal/profiles/default/ use-custom-default-size true
 	gsettings set org.mate.terminal.profile:/org/mate/terminal/profiles/default/ default-size-columns 80
 	gsettings set org.mate.terminal.profile:/org/mate/terminal/profiles/default/ default-size-rows 40
+}
+
+initialize_powershell() {
+	powershell -Command 'git clone https://github.com/matt9ucci/PSProfiles.git (Split-Path $PROFILE)'
 }
 
 initialize_vim() {

@@ -9,12 +9,14 @@ for target in $HOME/dotfiles/bin/*; do
 done
 
 for target in $HOME/dotfiles/install/*.sh; do
-	source $target
+	. $target
 done
 
-install_build-essentials
+install_buildessential
 install_curl
 install_git && initialize_git
 install_vim && initialize_vim
+install_vscode
+install_powershell && initialize_powershell
 
 initialize_bash

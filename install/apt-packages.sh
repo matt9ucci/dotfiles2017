@@ -1,8 +1,8 @@
 # make, gcc, g++, etc.
-install_build-essential() {
+install_buildessential() {
 	sudo apt-get install -y build-essential
 }
-uninstall_build-essential() {
+uninstall_buildessential() {
 	sudo apt-get purge -y build-essential
 }
 
