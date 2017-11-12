@@ -47,7 +47,7 @@ initialize_mateterminal() {
 }
 
 initialize_powershell() {
-	powershell -Command 'git clone https://github.com/matt9ucci/PSProfiles.git (Split-Path $PROFILE)'
+	pwsh -Command 'git clone https://github.com/matt9ucci/PSProfiles.git (Split-Path $PROFILE)'
 }
 
 initialize_vim() {

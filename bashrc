@@ -54,4 +54,4 @@ complete -F _docker d
 complete -F _docker_images dimg
 complete -F _docker_compose dc
 
-command -v powershell &>/dev/null && powershell
+command -v pwsh &>/dev/null && pwsh
